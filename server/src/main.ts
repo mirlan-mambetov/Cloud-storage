@@ -14,10 +14,15 @@ async function bootstrap() {
 		.setDescription('API documentation for Cloud Storage server')
 		.setVersion('1.0')
 		.addTag('API ROUTES')
+		.addBearerAuth()
 		.setLicense('MIT', 'https://github.com/mirlan-mambetov/cloud-storage')
 		.build()
 	const document = SwaggerModule.createDocument(app, config)
-	SwaggerModule.setup('api-docs', app, document)
+	SwaggerModule.setup('api-docs', app, document, {
+		swaggerOptions: {
+			persistAuthorization: true,
+		},
+	})
 
 	await app.listen(5000)
 	console.log(`SERVER RUNNING ON ${await app.getUrl()}`)

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -20,7 +20,6 @@ export class UserService {
 	async findByEmail(email: string) {
 		try {
 			const user = await this.repository.findOneBy({ email })
-			if (!user) throw new BadRequestException('User not found')
 			return user
 		} catch (error) {
 			throw new ExceptionsHandler(error)
