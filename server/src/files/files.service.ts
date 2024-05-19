@@ -6,29 +6,34 @@ import { FileEntity } from './entities/file.entity'
 
 @Injectable()
 export class FilesService {
+	// INITIAL QUERY BUILDER
+	private readonly queryBuilderFile
+
+	//
 	constructor(
 		@InjectRepository(FileEntity)
 		private readonly respository: Repository<FileEntity>,
-	) {}
+	) {
+		this.queryBuilderFile = this.respository.createQueryBuilder('file')
+	}
 
 	/**
 	 *
 	 * @returns
 	 */
 	async findAll(userId: number, fileType: FileTypeEnum) {
-		const queryBuilder = this.respository.createQueryBuilder('file')
-		queryBuilder.where('file.userId = :userId', { userId })
+		this.queryBuilderFile.where('file.userId = :userId', { userId })
 
 		if (fileType === FileTypeEnum.PHOTOS) {
-			queryBuilder.andWhere('file.mimeType ILIKE :type', {
+			this.queryBuilderFile.andWhere('file.mimeType ILIKE :type', {
 				type: '%image%',
 			})
 		}
 		if (fileType === FileTypeEnum.TRASH) {
-			queryBuilder.withDeleted().andWhere('file.deletedAt IS NOT NULL')
+			this.queryBuilderFile.withDeleted().andWhere('file.deletedAt IS NOT NULL')
 		}
 
-		return queryBuilder.getMany()
+		return this.queryBuilderFile.getMany()
 	}
 
 	/**
@@ -47,5 +52,21 @@ export class FilesService {
 				id: userId,
 			},
 		})
+	}
+
+	/**
+	 *
+	 * @param userId
+	 * @param ids
+	 * @returns
+	 */
+	async remove(userId: number, ids: string) {
+		const idsArray = ids.split(',')
+
+		this.queryBuilderFile.where('id IN (:...ids) AND userId = :userId', {
+			ids: idsArray,
+			userId,
+		})
+		return this.queryBuilderFile.softDelete().execute()
 	}
 }
