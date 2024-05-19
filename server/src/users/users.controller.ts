@@ -1,11 +1,11 @@
 import { Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
-import { UsersService } from './users.service'
+import { UserService } from './users.service'
 
 @Controller('users')
-@ApiTags('users')
+@ApiTags('USERS')
 export class UsersController {
-	constructor(private readonly usersService: UsersService) {}
+	constructor(private readonly usersService: UserService) {}
 
 	/**
 	 * @returns Created user

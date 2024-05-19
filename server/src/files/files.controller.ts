@@ -14,7 +14,7 @@ import { FilesService } from './files.service'
 import { fileStorage } from './storage'
 
 @Controller('files')
-@ApiTags('files')
+@ApiTags('FILES')
 export class FilesController {
 	constructor(private readonly filesService: FilesService) {}
 
