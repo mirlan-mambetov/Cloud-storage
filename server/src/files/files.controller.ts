@@ -1,9 +1,11 @@
 import {
 	Body,
 	Controller,
+	Get,
 	MaxFileSizeValidator,
 	ParseFilePipe,
 	Post,
+	Query,
 	UploadedFile,
 	UseGuards,
 	UseInterceptors,
@@ -11,6 +13,8 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express'
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger'
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard'
+import { currentUser } from 'src/decorators/currentUser.decorator'
+import { FileTypeEnum } from 'src/enum/files.enum'
 import { CreateFileDto } from './dto/create-file.dto'
 import { FilesService } from './files.service'
 import { fileStorage } from './storage'
@@ -21,6 +25,15 @@ import { fileStorage } from './storage'
 @UseGuards(JwtAuthGuard)
 export class FilesController {
 	constructor(private readonly filesService: FilesService) {}
+
+	@Get()
+	@UseGuards(JwtAuthGuard)
+	findAll(
+		@currentUser() userId: number,
+		@Query('type') fileType: FileTypeEnum,
+	) {
+		return this.filesService.findAll(userId, fileType)
+	}
 
 	@Post()
 	@UseInterceptors(
@@ -48,7 +61,8 @@ export class FilesController {
 			}),
 		)
 		file: Express.Multer.File,
+		@currentUser() userId: number,
 	) {
-		return file
+		return this.filesService.create(file, userId)
 	}
 }
