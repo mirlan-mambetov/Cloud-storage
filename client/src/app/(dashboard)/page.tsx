@@ -10,12 +10,17 @@ export async function fetchData() {
 			'Content-Type': 'application/json',
 		},
 	})
-
+	/**
+	 * IS THIS CUSTOM///
+	 */
+	// if (!response.ok)
+	// 	return redirect(
+	// 		new URL('/dashboard/auth', 'http://localhost:3000').toString()
+	// 	)
 	return await response.json()
 }
 const Dashboard: NextPage = async () => {
 	const user = await fetchData()
-	console.log(user)
 	return <section>Dashboard</section>
 }
 

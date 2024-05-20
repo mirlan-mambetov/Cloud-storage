@@ -17,6 +17,15 @@ body {
 	padding: 0 10px;
 	margin: 0 auto;
 }
-main {
-	padding: 10px;
+:where(.css-dev-only-do-not-override-17seli4).ant-menu-dark.ant-menu-horizontal
+	> .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-17seli4).ant-menu-dark
+	> .ant-menu.ant-menu-horizontal
+	> .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-17seli4).ant-menu-dark.ant-menu-horizontal
+	> .ant-menu-submenu-selected,
+:where(.css-dev-only-do-not-override-17seli4).ant-menu-dark
+	> .ant-menu.ant-menu-horizontal
+	> .ant-menu-submenu-selected {
+	background-color: purple;
 }
