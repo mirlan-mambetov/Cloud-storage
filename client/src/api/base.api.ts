@@ -2,8 +2,9 @@ import axios from 'axios'
 import { parseCookies } from 'nookies'
 import { getContentType } from './config'
 
+export const API_BASE_URI = 'http://localhost:5000'
 export const baseApi = axios.create({
-	baseURL: 'http://localhost:5000',
+	baseURL: API_BASE_URI,
 	headers: getContentType(),
 })
 

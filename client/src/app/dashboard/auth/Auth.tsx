@@ -1,8 +1,8 @@
 'use client'
 
 import { Tabs } from 'antd'
-import { Login } from '../../components/auth/Login'
-import { Register } from '../../components/auth/Register'
+import { Login } from '../../../components/auth/Login'
+import { Register } from '../../../components/auth/Register'
 import style from './auth.module.scss'
 
 export const Auth = () => {

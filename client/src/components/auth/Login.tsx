@@ -1,11 +1,11 @@
+import { IAuthLoginDTO } from '@/api/dto/auth.dto'
 import { authApi } from '@/api/index'
 import { Button, Form, FormProps, Input, notification } from 'antd'
 import FormItem from 'antd/es/form/FormItem'
 import { setCookie } from 'nookies'
-import { AuthType } from 'types/auth.types'
 
 export const Login = () => {
-	const handleSubmit: FormProps<AuthType>['onFinish'] = async (values) => {
+	const handleSubmit: FormProps<IAuthLoginDTO>['onFinish'] = async (values) => {
 		try {
 			const { token } = await authApi.login(values)
 			notification.success({
@@ -28,7 +28,7 @@ export const Login = () => {
 
 	return (
 		<Form
-			name="basic"
+			name="login"
 			labelCol={{
 				span: 8,
 			}}
