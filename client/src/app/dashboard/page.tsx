@@ -1,10 +1,10 @@
-import { Login } from '@/components/auth/Login'
+import { Auth } from 'app/dashboard/Auth'
 import { NextPage } from 'next'
 
 const Dashboard: NextPage = () => {
 	return (
 		<section>
-			<Login />
+			<Auth />
 		</section>
 	)
 }
